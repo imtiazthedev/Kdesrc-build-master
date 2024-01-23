@@ -1,0 +1,143 @@
+# These libs are likely part of your distro
+
+# So you only need to include this file if you compile your own Qt5,
+# to avoid mixing your own Qt with the distro's Qt.
+
+# keep libgpg-error in sync with gpgme, see below
+module libgpg-error
+    repository https://dev.gnupg.org/source/libgpg-error.git
+    branch master
+    # NOTE: you need to run ./autogen.sh before kdesrc-build runs configure.
+    # Maybe we can ask kdesrc-build do to that?
+    configure-flags --enable-maintainer-mode
+end module
+
+# qgpgme is part of gpgme...
+module gpgme
+    repository https://dev.gnupg.org/source/gpgme.git
+    branch master
+    # NOTE: you need to run ./autogen.sh before kdesrc-build runs configure.
+    # Maybe we can ask kdesrc-build do to that?
+    configure-flags --enable-maintainer-mode --enable-languages=cpp,qt5
+end module
+
+# For okular
+
+module poppler
+  repository https://gitlab.freedesktop.org/poppler/poppler.git
+  branch master
+  cmake-options -DWITH_GLIB=OFF -DLIB_SUFFIX=64 -DENABLE_UNSTABLE_API_ABI_HEADERS=1
+end module
+
+# For kaccounts-integration
+
+module libaccounts-glib
+  # doesn't depend on qt, but this way it's the right version for libaccounts-qt below
+  repository https://gitlab.com/accounts-sso/libaccounts-glib.git
+end module
+
+module libaccounts-qt
+  repository https://gitlab.com/accounts-sso/libaccounts-qt.git
+  qmake-options PREFIX=${kdedir}
+end module
+
+module signond
+  repository https://gitlab.com/accounts-sso/signond.git
+  qmake-options PREFIX=${kdedir}
+end module
+
+# For apper
+
+module packagekit-qt
+  repository https://github.com/PackageKit/PackageKit-Qt.git
+  branch main
+end module
+
+# For telepathy-accounts-signon
+
+module libsignon-glib
+  repository https://gitlab.com/accounts-sso/libsignon-glib.git
+  configure-flags -Dpy-overrides-dir=${kdedir}/lib/python3/dist-packages/gi/overrides
+end module
+
+# Mandatory for kmouth, optional for kpimtextedit
+
+module qtspeech
+  repository https://code.qt.io/qt/qtspeech.git
+  branch 5.15.2
+end module
+
+# Mandatory for krita
+
+module quazip
+  repository https://github.com/stachenov/quazip.git
+  branch master
+end module
+
+# For kaidan, qrca
+
+module zxing-cpp
+  repository https://github.com/zxing-cpp/zxing-cpp.git
+  branch master
+  cmake-options -DLINK_CPP_STATICALLY=OFF -DBUILD_SHARED_LIBRARY=ON
+end module
+
+# For kaidan
+
+module libomemo-c
+  repository https://github.com/dino/libomemo-c.git
+  cmake-options -DBUILD_SHARED_LIBS=ON
+end module
+
+module qxmpp
+  repository https://github.com/qxmpp-project/qxmpp.git
+  branch master
+  cmake-options -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_OMEMO=ON
+end module
+
+# For neochat
+
+module qtkeychain
+  repository https://github.com/frankosterfeld/qtkeychain.git
+  branch main
+end module
+
+module libquotient
+  repository https://github.com/quotient-im/libQuotient
+  branch dev
+  cmake-options -DBUILD_SHARED_LIBS=ON -DQuotient_ENABLE_E2EE=on
+end module
+
+module cmark
+  repository https://github.com/commonmark/cmark.git
+  branch master
+end module
+
+# for kio-extras
+module kdsoap
+  repository https://github.com/KDAB/KDSoap
+  branch master
+end module
+
+# For neochat, spacebar, possibly more
+module qcoro
+  repository https://github.com/danvratil/qcoro
+  cmake-options -DUSE_QT_VERSION=5 -DBUILD_SHARED_LIBS=ON
+  branch main
+end module
+
+module appstream
+  repository https://github.com/ximion/appstream
+  configure-flags -Dqt=true
+  branch main
+end module
+
+module wayland
+  repository https://gitlab.freedesktop.org/wayland/wayland
+  branch main
+end module
+
+module wayland-protocols
+  repository https://gitlab.freedesktop.org/wayland/wayland-protocols
+  branch main
+end module

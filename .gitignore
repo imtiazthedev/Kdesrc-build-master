@@ -1,0 +1,10 @@
+# Ignore the following files
+/build*/
+.cmake/
+CMakeLists.txt.user*
+*.unc-backup*
+doc/**/*.html
+doc/kdoctools5-common
+*.swp
+error-*.log
+

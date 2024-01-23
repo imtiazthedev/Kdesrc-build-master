@@ -1,0 +1,27 @@
+# Module definitions for building KDE Frameworks 6 and everything that depends on it
+# (cmake, frameworks, workspace, applications)
+
+# Usage: Write your own kdesrc-buildrc with only a "global" section
+# (including "branch-group kf6-qt6")
+# then include this file, like this:
+#
+# include kf6-qt6-build-include
+# (or use a full path)
+#
+include kf6-common-options-build-include
+
+
+# You can then add additional modules if desired.
+include custom-qt6-libs-build-include 
+include kf6-frameworks-build-include
+include kf6-workspace-build-include
+include kf6-applications-build-include
+include kf6-kdepim-build-include
+include kf6-extragear-build-include
+
+module-set
+    repository kde-projects
+    use-modules extragear playground libraries
+    cmake-options -DBUILD_WITH_QT6=ON
+end module-set
+
